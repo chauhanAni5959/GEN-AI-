@@ -1,0 +1,235 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VivekAI | Premium Interview ChatBoard</title>
+    <meta
+      name="description"
+      content="VivekAI is a premium AI interview chatboard for tech candidates, built for MERN full stack workflows."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="aurora aurora-left"></div>
+    <div class="aurora aurora-right"></div>
+
+    <main class="shell">
+      <section class="hero">
+        <div class="brand-row">
+          <div class="brand-mark">V</div>
+          <div>
+            <p class="eyebrow">Premium GEN AI + MERN Interview Board</p>
+            <h1>VivekAI</h1>
+          </div>
+        </div>
+
+        <p class="hero-copy">
+          Let candidates choose the exact interview style they want — frontend, backend, full stack, DSA, or mixed —
+          then let VivekAI run a polished, interview-grade session with AI feedback.
+        </p>
+
+        <div class="hero-grid">
+          <article class="stat-card">
+            <span>01</span>
+            <h3>Role-aware interviews</h3>
+            <p>Tailor every round for junior, mid, or senior candidates.</p>
+          </article>
+          <article class="stat-card">
+            <span>02</span>
+            <h3>HttpOnly JWT auth</h3>
+            <p>Secure sessions with login, register, and protected chat history.</p>
+          </article>
+          <article class="stat-card">
+            <span>03</span>
+            <h3>AI feedback loop</h3>
+            <p>Adaptive follow-ups, scoring, and interviewer-style coaching.</p>
+          </article>
+        </div>
+
+        <div class="question-chips">
+          <span>Frontend</span>
+          <span>Backend</span>
+          <span>Full Stack</span>
+          <span>DSA</span>
+          <span>System Design</span>
+          <span>Behavioral</span>
+        </div>
+      </section>
+
+      <section class="panel auth-panel" id="authPanel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Step 1</p>
+            <h2>Sign in to continue</h2>
+          </div>
+          <button class="ghost-button" id="switchModeButton">Create account</button>
+        </div>
+
+        <form class="auth-form" id="authForm">
+          <label>
+            <span>Name</span>
+            <input type="text" id="nameInput" placeholder="Vivek Kumar" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" id="emailInput" placeholder="vivek@email.com" />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="passwordInput" placeholder="••••••••" />
+          </label>
+          <button class="primary-button" type="submit" id="authSubmitButton">Login</button>
+        </form>
+        <p class="helper-text" id="authHelperText">Use your account to save premium interview sessions.</p>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <div class="panel dashboard-top">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Step 2</p>
+              <h2>Configure the interview</h2>
+            </div>
+            <button class="ghost-button" id="logoutButton">Logout</button>
+          </div>
+
+          <div class="welcome-line">
+            <div>
+              <p class="muted">Logged in as</p>
+              <h3 id="welcomeName">Candidate</h3>
+            </div>
+            <div class="status-pill" id="sessionStatus">Ready</div>
+          </div>
+
+          <form class="setup-grid" id="sessionForm">
+            <label>
+              <span>Role</span>
+              <input type="text" id="roleInput" value="Full Stack Developer" />
+            </label>
+            <label>
+              <span>Stack</span>
+              <input type="text" id="stackInput" value="MERN" />
+            </label>
+            <label>
+              <span>Experience</span>
+              <select id="levelInput">
+                <option>Fresher</option>
+                <option selected>Mid</option>
+                <option>Senior</option>
+              </select>
+            </label>
+            <label>
+              <span>Question style</span>
+              <select id="styleInput">
+                <option value="mixed" selected>Mixed technical</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="fullstack">Full stack</option>
+                <option value="dsa">DSA / Problem solving</option>
+              </select>
+            </label>
+            <label class="wide">
+              <span>Focus topics</span>
+              <input
+                type="text"
+                id="focusInput"
+                placeholder="React, Express, MongoDB, System Design"
+              />
+            </label>
+            <button class="primary-button wide" type="submit">Start VivekAI interview</button>
+          </form>
+        </div>
+
+        <div class="workspace">
+          <section class="panel chat-panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Step 3</p>
+                <h2>Live interview chatboard</h2>
+              </div>
+              <div class="session-meta">
+                <div>
+                  <span class="muted">Score</span>
+                  <strong id="scoreValue">0</strong>
+                </div>
+                <div>
+                  <span class="muted">Round</span>
+                  <strong id="roundValue">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-log" id="chatLog">
+              <div class="empty-state">
+                <h3>Your interview begins here.</h3>
+                <p>Choose a role and question style, then let VivekAI open with the first question.</p>
+              </div>
+            </div>
+
+            <form class="message-form" id="messageForm">
+              <textarea
+                id="messageInput"
+                rows="4"
+                placeholder="Type your answer here..."
+                disabled
+              ></textarea>
+              <div class="message-actions">
+                <div class="hint">Tip: mention tradeoffs, examples, and edge cases for a stronger score.</div>
+                <button class="primary-button" type="submit" id="sendButton" disabled>Send answer</button>
+              </div>
+            </form>
+          </section>
+
+          <aside class="panel insights-panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="panel-kicker">Premium insights</p>
+                <h2>Interview control room</h2>
+              </div>
+            </div>
+
+            <div class="insight-card">
+              <span>Question focus</span>
+              <p id="focusSummary">Mixed technical</p>
+            </div>
+            <div class="insight-card">
+              <span>Stack</span>
+              <p id="stackSummary">MERN</p>
+            </div>
+            <div class="insight-card">
+              <span>Role</span>
+              <p id="roleSummary">Full Stack Developer</p>
+            </div>
+
+            <div class="insight-card progress-card">
+              <span>Session flow</span>
+              <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <p id="progressText">Waiting for the first interview round.</p>
+            </div>
+
+            <div class="insight-card">
+              <span>What VivekAI checks</span>
+              <ul>
+                <li>Clarity and structure</li>
+                <li>Tradeoff awareness</li>
+                <li>Real-world examples</li>
+                <li>Security and scalability</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
