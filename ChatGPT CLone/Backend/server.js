@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const { OpenAI } = require("openai");
+// const { OpenAI } = require("openai");
+const { Groq } = require("groq-sdk");
 require("dotenv").config();
 
 const app = express();
@@ -10,9 +11,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize OpenAI Instance using key from environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// Initialize Groq Instance using key from environment variables
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 // Primary Dialogue API Endpoint
@@ -24,7 +25,7 @@ app.post("/api/chat", async (req, res) => {
   }
 
   try {
-    // Map previous chat logs into a syntax structure OpenAI recognizes
+    // Map previous chat logs into a syntax structure Groq recognizes
     const formattedHistory = (history || []).map((chat) => ({
       role: chat.role,
       content: chat.content,
@@ -40,8 +41,8 @@ app.post("/api/chat", async (req, res) => {
       { role: "user", content: message },
     ];
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Highly responsive, cost-effective processing model
+    const completion = await groq.chat.completions.create({
+      model: "openai/gpt-oss-20b", // Highly responsive, cost-effective processing model
       messages: messagePayload,
     });
 
